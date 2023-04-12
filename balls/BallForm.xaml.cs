@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Drawing;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Interop;
 
 namespace balls
 {
@@ -26,6 +27,8 @@ namespace balls
         Color[,] colMat = new Color[MainWindow.BoxWidth, MainWindow.BoxHeigth];
 
         int colorCount = 4;
+
+        object locker;
 
         public BallForm()
         {
@@ -42,6 +45,22 @@ namespace balls
                     colMat[row, col] = Color.White;
                 }
             }
+
+            locker = new object();
+
+            FirstThread = new Thread(BallFill);
+            FirstThread.IsBackground = true;
+
+            FirstThread.Start(new WindowInteropHelper(this).Handle);
+
+        }
+
+        private void BallFill(object param)
+        {
+            var handle = (IntPtr) param;
+
+            Random random = new Random();
+            var gCntx = Graphics.FromHwnd(handle);
         }
     }
 }
