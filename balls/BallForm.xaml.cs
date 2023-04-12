@@ -61,6 +61,13 @@ namespace balls
 
             Random random = new Random();
             var gCntx = Graphics.FromHwnd(handle);
+            var frame = new Bitmap(
+                MainWindow.BallSize * MainWindow.BoxWidth,
+                MainWindow.BallSize * MainWindow.BoxHeigth
+                );
+            var fCntx = Graphics.FromImage(frame);
+
+            var cleanBrush = new SolidBrush(Color.White);
         }
     }
 }
