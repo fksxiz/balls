@@ -20,9 +20,22 @@ namespace balls
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        public const int BallSize = 25;
+
+        //размеры стаканов в шарах
+        public const int DoxWidth = 10;
+        public const int BoxHeigth = 20;
+
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void runButton_Click(object sender, RoutedEventArgs e)
+        {
+            BallForm ballForm = new BallForm();
+            ballForm.Width=BallSize
         }
     }
 }
