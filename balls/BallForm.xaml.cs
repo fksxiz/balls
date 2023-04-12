@@ -57,7 +57,8 @@ namespace balls
 
         private Color GetLayBallColor(int r, int c)
         {
-            lock(locker){
+            lock (locker)
+            {
                 return colMat[r, c];
             }
         }
@@ -122,8 +123,9 @@ namespace balls
                             if (layBallColor != Color.White)
                             {
                                 var brush = new SolidBrush(layBallColor);
-                                fCntx.FillEllipse(brush, col * MainWindow.BallSize,
-                                    row * MainWindow.BallSize,
+                                fCntx.FillEllipse(brush,
+                                     col * MainWindow.BallSize,
+                                    (MainWindow.BoxHeigth - 1 - row) * MainWindow.BallSize,
                                     MainWindow.BallSize,
                                     MainWindow.BallSize);
                                 brush.Dispose();
@@ -137,18 +139,51 @@ namespace balls
 
                     gCntx.DrawImage(frame, 0, 0);
 
-                    ballY += 8;
+                    ballY += MainWindow.BallSize / 2;
                 } while (fallRow > 0 && GetLayBallColor(fallRow, fallCol) == Color.White);
+
+                //если встали на другой шарик
+                if (GetLayBallColor(fallRow, fallCol) != Color.White)
+                {
+                    fallRow++;
+                }
+
                 lock (locker)
                 {
                     colMat[fallRow, fallCol] = ballColor;
                 }
+
             }
+
+            fCntx.FillRectangle(cleanBrush, 0, 0,
+            MainWindow.BallSize * MainWindow.BoxWidth,
+            MainWindow.BallSize * MainWindow.BoxHeigth);
+
+
+            for (var row = 0; row < MainWindow.BoxHeigth; row++)
+            {
+                for (var col = 0; col < MainWindow.BoxWidth; col++)
+                {
+                    var layBallColor = GetLayBallColor(row, col);
+                    if (layBallColor != Color.White)
+                    {
+                        var brush = new SolidBrush(layBallColor);
+                        fCntx.FillEllipse(brush,
+                             col * MainWindow.BallSize,
+                            (MainWindow.BoxHeigth - 1 - row) * MainWindow.BallSize,
+                            MainWindow.BallSize,
+                            MainWindow.BallSize);
+                        brush.Dispose();
+                    }
+                }
+            }
+            gCntx.DrawImage(frame, 0, 0);
+
             fCntx.Dispose();
             gCntx.Dispose();
 
         }
 
-       
+
     }
 }
