@@ -80,6 +80,12 @@ namespace balls {
             {
             case 1:
             this.runButton = ((System.Windows.Controls.Button)(target));
+            
+            #line 10 "..\..\MainWindow.xaml"
+            this.runButton.Click += new System.Windows.RoutedEventHandler(this.runButton_Click);
+            
+            #line default
+            #line hidden
             return;
             }
             this._contentLoaded = true;

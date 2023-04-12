@@ -24,7 +24,7 @@ namespace balls
         public const int BallSize = 25;
 
         //размеры стаканов в шарах
-        public const int DoxWidth = 10;
+        public const int BoxWidth = 10;
         public const int BoxHeigth = 20;
 
         public MainWindow()
@@ -35,7 +35,9 @@ namespace balls
         private void runButton_Click(object sender, RoutedEventArgs e)
         {
             BallForm ballForm = new BallForm();
-            ballForm.Width=BallSize
+            ballForm.Width = BallSize * BoxWidth + Width - ((FrameworkElement) Content).ActualWidth;
+            ballForm.Height = BallSize * BoxHeigth + Height - ((FrameworkElement) Content).ActualHeight;
+            ballForm.Show();
         }
     }
 }
