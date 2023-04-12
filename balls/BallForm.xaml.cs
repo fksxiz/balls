@@ -130,11 +130,12 @@ MainWindow.BallSize * MainWindow.BoxHeigth);
                 var fallCol = random.Next(MainWindow.BoxWidth);
                 var ballY = 0;
                 fallRow = 1;
+                ballY -= MainWindow.BallSize / 2;
 
                 do
                 {
-                    
 
+                    ballY += MainWindow.BallSize / 2;
                     fallRow = MainWindow.BoxHeigth - 1 - ballY / MainWindow.BallSize;
 
 
@@ -145,8 +146,6 @@ MainWindow.BallSize * MainWindow.BoxHeigth);
                                       ballY, MainWindow.BallSize, MainWindow.BallSize);
 
                     gCntx.DrawImage(frame, 0, 0);
-
-                    ballY += MainWindow.BallSize / 2;
                 } while (fallRow > 0 && GetLayBallColor(fallRow, fallCol) == Color.White);
 
                 //если встали на другой шарик
