@@ -63,6 +63,32 @@ namespace balls
             }
         }
 
+        private void DrawColMat(Graphics cntx)
+        {
+            cntx.FillRectangle(new SolidBrush(Color.White), 0, 0,
+MainWindow.BallSize * MainWindow.BoxWidth,
+MainWindow.BallSize * MainWindow.BoxHeigth);
+
+
+            for (var row = 0; row < MainWindow.BoxHeigth; row++)
+            {
+                for (var col = 0; col < MainWindow.BoxWidth; col++)
+                {
+                    var layBallColor = GetLayBallColor(row, col);
+                    if (layBallColor != Color.White)
+                    {
+                        var brush = new SolidBrush(layBallColor);
+                        cntx.FillEllipse(brush,
+                             col * MainWindow.BallSize,
+                            (MainWindow.BoxHeigth - 1 - row) * MainWindow.BallSize,
+                            MainWindow.BallSize,
+                            MainWindow.BallSize);
+                        brush.Dispose();
+                    }
+                }
+            }
+        }
+
         private void BallFill(object param)
         {
             var handle = (IntPtr)param;
@@ -107,31 +133,12 @@ namespace balls
 
                 do
                 {
-                    fCntx.FillRectangle(cleanBrush, 0, 0,
-                    MainWindow.BallSize * MainWindow.BoxWidth,
-                    MainWindow.BallSize * MainWindow.BoxHeigth);
+                    
 
                     fallRow = MainWindow.BoxHeigth - 1 - ballY / MainWindow.BallSize;
 
 
-
-                    for (var row = 0; row < MainWindow.BoxHeigth; row++)
-                    {
-                        for (var col = 0; col < MainWindow.BoxWidth; col++)
-                        {
-                            var layBallColor = GetLayBallColor(row, col);
-                            if (layBallColor != Color.White)
-                            {
-                                var brush = new SolidBrush(layBallColor);
-                                fCntx.FillEllipse(brush,
-                                     col * MainWindow.BallSize,
-                                    (MainWindow.BoxHeigth - 1 - row) * MainWindow.BallSize,
-                                    MainWindow.BallSize,
-                                    MainWindow.BallSize);
-                                brush.Dispose();
-                            }
-                        }
-                    }
+                    DrawColMat(fCntx);
 
                     var ballBrush = new SolidBrush(ballColor);
                     fCntx.FillEllipse(ballBrush, fallCol * MainWindow.BallSize,
@@ -155,28 +162,7 @@ namespace balls
 
             }
 
-            fCntx.FillRectangle(cleanBrush, 0, 0,
-            MainWindow.BallSize * MainWindow.BoxWidth,
-            MainWindow.BallSize * MainWindow.BoxHeigth);
-
-
-            for (var row = 0; row < MainWindow.BoxHeigth; row++)
-            {
-                for (var col = 0; col < MainWindow.BoxWidth; col++)
-                {
-                    var layBallColor = GetLayBallColor(row, col);
-                    if (layBallColor != Color.White)
-                    {
-                        var brush = new SolidBrush(layBallColor);
-                        fCntx.FillEllipse(brush,
-                             col * MainWindow.BallSize,
-                            (MainWindow.BoxHeigth - 1 - row) * MainWindow.BallSize,
-                            MainWindow.BallSize,
-                            MainWindow.BallSize);
-                        brush.Dispose();
-                    }
-                }
-            }
+            DrawColMat(fCntx);
             gCntx.DrawImage(frame, 0, 0);
 
             fCntx.Dispose();
