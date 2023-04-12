@@ -24,7 +24,7 @@ namespace balls
         Thread FirstThread = null;
         Thread SecondThread = null;
 
-        Color[,] colMat = new Color[MainWindow.BoxWidth, MainWindow.BoxHeigth];
+        Color[,] colMat = new Color[MainWindow.BoxHeigth, MainWindow.BoxWidth];
 
         int colorCount = 4;
 
@@ -38,9 +38,9 @@ namespace balls
         protected override void OnSourceInitialized(EventArgs e)
         {
             base.OnSourceInitialized(e);
-            for (var row = 0; row < MainWindow.BoxWidth; row++)
+            for (var row = 0; row < MainWindow.BoxHeigth; row++)
             {
-                for (var col = 0; col < MainWindow.BoxHeigth; col++)
+                for (var col = 0; col < MainWindow.BoxWidth; col++)
                 {
                     colMat[row, col] = Color.White;
                 }
@@ -57,11 +57,9 @@ namespace balls
 
         private Color GetLayBallColor(int r, int c)
         {
-            Color res;
             lock(locker){
-                res = colMat[r, c];
+                return colMat[r, c];
             }
-            return res;
         }
 
         private void BallFill(object param)
@@ -78,14 +76,15 @@ namespace balls
 
             var cleanBrush = new SolidBrush(Color.White);
 
-            while (true)
+            int fallRow = 1;
+            while (fallRow != MainWindow.BoxHeigth - 1)
             {
 
                 var ballColor = Color.Black;
                 switch (random.Next(colorCount))
                 {
                     case 0:
-                        ballColor = Color.Azure;
+                        ballColor = Color.DarkBlue;
                         break;
                     case 1:
                         ballColor = Color.Red;
@@ -103,26 +102,53 @@ namespace balls
 
                 var fallCol = random.Next(MainWindow.BoxWidth);
                 var ballY = 0;
+                fallRow = 1;
 
-                while (true)
+                do
                 {
                     fCntx.FillRectangle(cleanBrush, 0, 0,
                     MainWindow.BallSize * MainWindow.BoxWidth,
                     MainWindow.BallSize * MainWindow.BoxHeigth);
 
-                    var fallRow = ballY / MainWindow.BallSize;
+                    fallRow = MainWindow.BoxHeigth - 1 - ballY / MainWindow.BallSize;
 
-                }
 
-                for (var row = 0; row < MainWindow.BoxWidth; row++)
-                {
-                    for (var col = 0; col < MainWindow.BoxHeigth; col++)
+
+                    for (var row = 0; row < MainWindow.BoxHeigth; row++)
                     {
-                        var layBallColor = colMat[row, col];
+                        for (var col = 0; col < MainWindow.BoxWidth; col++)
+                        {
+                            var layBallColor = GetLayBallColor(row, col);
+                            if (layBallColor != Color.White)
+                            {
+                                var brush = new SolidBrush(layBallColor);
+                                fCntx.FillEllipse(brush, col * MainWindow.BallSize,
+                                    row * MainWindow.BallSize,
+                                    MainWindow.BallSize,
+                                    MainWindow.BallSize);
+                                brush.Dispose();
+                            }
+                        }
                     }
+
+                    var ballBrush = new SolidBrush(ballColor);
+                    fCntx.FillEllipse(ballBrush, fallCol * MainWindow.BallSize,
+                                      ballY, MainWindow.BallSize, MainWindow.BallSize);
+
+                    gCntx.DrawImage(frame, 0, 0);
+
+                    ballY += 8;
+                } while (fallRow > 0 && GetLayBallColor(fallRow, fallCol) == Color.White);
+                lock (locker)
+                {
+                    colMat[fallRow, fallCol] = ballColor;
                 }
             }
+            fCntx.Dispose();
+            gCntx.Dispose();
 
         }
+
+       
     }
 }

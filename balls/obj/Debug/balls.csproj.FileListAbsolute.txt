@@ -1,0 +1,17 @@
+D:\3ИС3\Малышкин Иван\balls\balls\balls\bin\Debug\balls.exe.config
+D:\3ИС3\Малышкин Иван\balls\balls\balls\bin\Debug\balls.exe
+D:\3ИС3\Малышкин Иван\balls\balls\balls\bin\Debug\balls.pdb
+D:\3ИС3\Малышкин Иван\balls\balls\balls\obj\Debug\balls.csprojAssemblyReference.cache
+D:\3ИС3\Малышкин Иван\balls\balls\balls\obj\Debug\BallForm.g.cs
+D:\3ИС3\Малышкин Иван\balls\balls\balls\obj\Debug\MainWindow.g.cs
+D:\3ИС3\Малышкин Иван\balls\balls\balls\obj\Debug\App.g.cs
+D:\3ИС3\Малышкин Иван\balls\balls\balls\obj\Debug\balls_MarkupCompile.cache
+D:\3ИС3\Малышкин Иван\balls\balls\balls\obj\Debug\balls_MarkupCompile.lref
+D:\3ИС3\Малышкин Иван\balls\balls\balls\obj\Debug\BallForm.baml
+D:\3ИС3\Малышкин Иван\balls\balls\balls\obj\Debug\MainWindow.baml
+D:\3ИС3\Малышкин Иван\balls\balls\balls\obj\Debug\balls.g.resources
+D:\3ИС3\Малышкин Иван\balls\balls\balls\obj\Debug\balls.Properties.Resources.resources
+D:\3ИС3\Малышкин Иван\balls\balls\balls\obj\Debug\balls.csproj.GenerateResource.cache
+D:\3ИС3\Малышкин Иван\balls\balls\balls\obj\Debug\balls.csproj.CoreCompileInputs.cache
+D:\3ИС3\Малышкин Иван\balls\balls\balls\obj\Debug\balls.exe
+D:\3ИС3\Малышкин Иван\balls\balls\balls\obj\Debug\balls.pdb

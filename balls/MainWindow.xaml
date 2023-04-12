@@ -7,6 +7,6 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="250" Width="400">
     <Grid>
-        <Button x:Name="runButton" Content="Пуск" Margin="20"/>
+        <Button x:Name="runButton" Content="Пуск" Margin="20" Click="runButton_Click"/>
     </Grid>
 </Window>
